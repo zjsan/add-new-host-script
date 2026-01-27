@@ -1,0 +1,6 @@
+services:
+  builder:
+    build: .
+    volumes:
+      - .:/app
+    # This ensures the 'dist' folder appears on the host machine
