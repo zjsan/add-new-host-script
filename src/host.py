@@ -21,7 +21,7 @@ def read_hosts_file():
 def write_hosts_file(lines):
 
     HOSTS_PATH = get_hosts_path()
-    
+
     with HOSTS_PATH.open("w", encoding="utf-8") as file:
         file.writelines(lines)
 
@@ -37,7 +37,8 @@ def host_exist(domain,lines):
             #split line into whiteespaces
             #check if domain exists in a token, not substring
             if domain in clean.split():
-                return True.
+                return True
+
     return False
 
 def add_host_entry(ip, domain):
@@ -45,9 +46,7 @@ def add_host_entry(ip, domain):
     lines = read_hosts_file()#read the file
 
     #check if host already exists
-    if host_exist(domain,lines):
-
-        print(f"Host entry for {domain} already exists.")
+    if host_exist(domain,lines)
         return False #host already exists
 
     lines.append(f"{ip}\t{domain}\n")
