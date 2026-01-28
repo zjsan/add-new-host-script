@@ -14,6 +14,12 @@ def read_hosts_file():
     with open(get_hosts_path(), "r") as f:
         return f.read()
 
+
+def write_hosts_file(lines):
+
+    with HOSTS_PATH.open("w", encoding="utf-8") as file:
+        file.writelines(lines)
+
 def host_exist(domain,lines):
 
     #remove whitespace and comments
@@ -39,4 +45,35 @@ def add_host_entry(ip, domain):
 
     lines.append(f"{ip}\t{domain}\n")
 
+    write_hosts_file(lines)#write back to file for the new host addition
+
+    return True
+
+def remove_host_entry(domain):
+
+    lines = read_hosts_file()
+    new_lines = []#list to hold lines after removal
+
+    removed = False
+
+    #iterate through lines and filter out the one to remove
+
+    for line in lines:
+
+        #remove whitespace and comments
+        clean = line.strip()
+
+        #skip empty line and comments
+        if clean and not clean.startswith("#") and domain in clean.split():
+            removed = True
+            continue
+        new_lines.append(line)
+
+    #write only if something was removed
+    if removed:
+        write_hosts_file(new_lines)#write back to file after removal
+        return True
+    
+    return removed
+        
 
