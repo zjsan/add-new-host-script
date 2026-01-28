@@ -1,5 +1,6 @@
 import sys 
 import ctypes
+from host import add_host_entry, remove_host_entry
 
 production_ip = "13.251.136.207"
 production_domain = "app.sdg-dashboard.com"
@@ -19,38 +20,37 @@ def is_admin():
         return False
 
 def main():
+
+    if not is_admin():
+        print("This script requires administrative privileges to run.")
+        print("Please run the script as an administrator.")
+        sys.exit(1)
+
     while True:
+        show_menu()
+        choice = input("\n Select opton: ").strip()
 
-        if is_admin():
+        if choice == "1":
+            success = add_host_entry(production_ip, production_domain)
 
-            show_menu()
-            choice = input("\n Select opton: ").strip()
-
-            if choice == "1":
-                success = add_host_entry(production_ip, production_domain)
-
-                if success:
-                    print(f"\n Host entry added: {production_ip} {production_domain}\n")
-                else:
-                    print(f"\n Host failed to add: {production_ip} {production_domain}\n")
-
-            elif choice == "2":
-                success = remove_host_entry(production_domain)
-
-                if success:
-                    print(f"\n Host entry removed: {production_domain}\n")
-                else:
-                    print(f"\n Host failed to remove: {production_domain}\n")
-
-            elif choice == "0":
-                print("\n Exiting...\n")
-                sys.exit(0)
+            if success:
+                print(f"\n Host entry added: {production_ip} {production_domain}\n")
             else:
-                print("\n Invalid option. Please try again.\n")
+                print(f"\n Host failed to add: {production_ip} {production_domain}\n")
+
+        elif choice == "2":
+            success = remove_host_entry(production_domain)
+
+            if success:
+                print(f"\n Host entry removed: {production_domain}\n")
+            else:
+                print(f"\n Host failed to remove: {production_domain}\n")
+
+        elif choice == "0":
+            print("\n Exiting...\n")
+            sys.exit(0)
         else:
-            print("This script requires administrative privileges to run.")
-            print("Please run the script as an administrator.")
-            sys.exit(1)
+            print("\n Invalid option. Please try again.\n")
 
 if __name__ == "__main__":
     main()
