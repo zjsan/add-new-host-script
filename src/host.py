@@ -28,7 +28,7 @@ def write_hosts_file(lines):
     #cheeck if backup already exists before creating
     if not backup_path.exists():
         backup_path.write_text(
-            hosts_path.read_text(encoding="utf-8"),
+            HOSTS_PATH.read_text(encoding="utf-8"),
             encoding="utf-8"
         )
 
