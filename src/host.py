@@ -9,16 +9,19 @@ def get_hosts_path():
 
     raise RuntimeError("Unsupported OS for now")
     
-HOSTS_PATH = get_hosts_path()
 
 def read_hosts_file():
-    with open(get_hosts_path(), "r") as f:
-        return f.readlines()
+
+    HOSTS_PATH = get_hosts_path()
+
+    with HOSTS_PATH.open("r", encoding="utf-8") as file:
+        return file.readlines()
 
 
 def write_hosts_file(lines):
 
-
+    HOSTS_PATH = get_hosts_path()
+    
     with HOSTS_PATH.open("w", encoding="utf-8") as file:
         file.writelines(lines)
 
