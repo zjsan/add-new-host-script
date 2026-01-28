@@ -22,6 +22,16 @@ def write_hosts_file(lines):
 
     HOSTS_PATH = get_hosts_path()
 
+    #create a backup before writing
+    backup_path = HOSTS_PATH.with_suffix(".bak")
+
+    #cheeck if backup already exists before creating
+    if not backup_path.exists():
+        backup_path.write_text(
+            hosts_path.read_text(encoding="utf-8"),
+            encoding="utf-8"
+        )
+
     with HOSTS_PATH.open("w", encoding="utf-8") as file:
         file.writelines(lines)
 
@@ -46,7 +56,7 @@ def add_host_entry(ip, domain):
     lines = read_hosts_file()#read the file
 
     #check if host already exists
-    if host_exist(domain,lines)
+    if host_exist(domain,lines):
         return False #host already exists
 
     lines.append(f"{ip}\t{domain}\n")
