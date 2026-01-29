@@ -1,5 +1,7 @@
 import platform
+import subprocess
 from pathlib import Path
+
 
 DEBUG = True
 
@@ -66,6 +68,22 @@ def host_exist(domain,lines):
 
     return False
 
+def dnsflush():
+    try:
+
+        #flush DNS cache on Windows
+        subprocess.run(
+        ["ipconfig", "/flushdns"],
+        check=True,         # Raise an exception if the command fails
+        shell=True,         # Required to interpret "ipconfig /flushdns" correctly as a single command
+        capture_output=True, # Capture the output
+        text=True           # Return output as a string
+        )
+        print("DNS cache flushed successfully.")
+    except Exception as e:
+        print(f"Failed to flush DNS cache: {e}")
+
+
 def add_host_entry(ip, domain):
 
     lines = read_hosts_file()#read the file
@@ -81,6 +99,7 @@ def add_host_entry(ip, domain):
     lines.append(f"{ip}\t{domain}\n")
 
     write_hosts_file(lines)#write back to file for the new host addition
+   # dnsflush()#flush DNS cache after adding new host entry
 
     return True
 
