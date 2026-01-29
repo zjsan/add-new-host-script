@@ -7,7 +7,7 @@ production_domain = "app.sdg-dashboard.com"
 
 def show_menu():
     print("\n Windows hosts file manager \n")
-    print("--------------------------")
+    print("------------------------------------------")
     print("Select an option below then press Enter:\n")
     print("[1] Add host entry")
     print("[2] Remove host entry")

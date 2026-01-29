@@ -1,13 +1,20 @@
 import platform
 from pathlib import Path
 
+DEBUG = True
+
 def get_hosts_path():
+
+    if DEBUG:
+        return Path("./test_hosts.txt")
+        
     system = platform.system()
 
     if system == "Windows":
         # return Path(r"C:\Windows\System32\drivers\etc\hosts")
         return Path("./test_hosts.txt")
-
+    return Path("/etc/hosts")
+    
     raise RuntimeError("Unsupported OS for now")
     
 
