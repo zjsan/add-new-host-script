@@ -5,14 +5,18 @@ DEBUG = True
 
 def get_hosts_path():
 
+    # .parent gets the root directory of the project for the test hosts file
+    # for development testing purposes
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
     if DEBUG:
-        return Path("./test_hosts.txt")
-        
+        return PROJECT_ROOT / "test_hosts.txt"
+
     system = platform.system()
 
+    #actual hosts file paths
     if system == "Windows":
-        # return Path(r"C:\Windows\System32\drivers\etc\hosts")
-        return Path("./test_hosts.txt")
+        return Path(r"C:\Windows\System32\drivers\etc\hosts")
     return Path("/etc/hosts")
     
     raise RuntimeError("Unsupported OS for now")
