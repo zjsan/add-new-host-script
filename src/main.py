@@ -8,6 +8,7 @@ production_domain = "app.sdg-dashboard.com"
 def show_menu():
     print("\n Windows hosts file manager \n")
     print("--------------------------")
+    print("Select an option below then press Enter:\n")
     print("[1] Add host entry")
     print("[2] Remove host entry")
     print("[0] Exit")
@@ -21,14 +22,14 @@ def is_admin():
 
 def main():
 
-    if not is_admin():
-        print("This script requires administrative privileges to run.")
-        print("Please run the script as an administrator.")
-        sys.exit(1)
+   # if not is_admin():
+    #    print("This script requires administrative privileges to run.")
+     #   print("Please run the script as an administrator.")
+      #  sys.exit(1)
 
     while True:
         show_menu()
-        choice = input("\n Select opton: ").strip()
+        choice = input("\n Select option: ").strip()
 
         if choice == "1":
             success = add_host_entry(production_ip, production_domain)

@@ -5,7 +5,8 @@ def get_hosts_path():
     system = platform.system()
 
     if system == "Windows":
-        return Path(r"C:\Windows\System32\drivers\etc\hosts")
+        # return Path(r"C:\Windows\System32\drivers\etc\hosts")
+        return Path("./test_hosts.txt")
 
     raise RuntimeError("Unsupported OS for now")
     
