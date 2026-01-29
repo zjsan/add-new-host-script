@@ -35,7 +35,7 @@ def write_hosts_file(lines):
             encoding="utf-8"
         )
 
-    with HOSTS_PATH.open("w", encoding="utf-8") as file:
+    with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
         file.writelines(lines)
 
 def host_exist(domain,lines):
@@ -61,6 +61,10 @@ def add_host_entry(ip, domain):
     #check if host already exists
     if host_exist(domain,lines):
         return False #host already exists
+
+    #ensure the file ends with a newline before appending
+    if lines and not lines[-1].endswith('\n'):
+        lines[-1] += '\n'
 
     lines.append(f"{ip}\t{domain}\n")
 
