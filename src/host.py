@@ -14,8 +14,11 @@ def read_hosts_file():
 
     HOSTS_PATH = get_hosts_path()
 
-    with HOSTS_PATH.open("r", encoding="utf-8") as file:
-        return file.readlines()
+    try:
+        content = HOSTS_PATH.read_text(encoding="utf-8")
+        return content.splitlines(keepends=True)
+    except FileNotFoundError:
+        return []
 
 
 def write_hosts_file(lines):
