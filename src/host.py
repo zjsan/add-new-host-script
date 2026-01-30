@@ -43,13 +43,14 @@ def write_hosts_file(lines):
     backup_path = HOSTS_PATH.with_suffix(".bak")
 
     try:
-
         #cheeck if backup already exists before creating
+        #back up only the original hosts file once
         if not backup_path.exists():
             backup_path.write_text(
                 HOSTS_PATH.read_text(encoding="utf-8"),
                 encoding="utf-8"
             )
+
     except Exception as e:
         print(f"Failed to create backup: {e}")
         return False
