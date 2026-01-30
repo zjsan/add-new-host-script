@@ -42,12 +42,17 @@ def write_hosts_file(lines):
     #create a backup before writing
     backup_path = HOSTS_PATH.with_suffix(".bak")
 
-    #cheeck if backup already exists before creating
-    if not backup_path.exists():
-        backup_path.write_text(
-            HOSTS_PATH.read_text(encoding="utf-8"),
-            encoding="utf-8"
-        )
+    try:
+
+        #cheeck if backup already exists before creating
+        if not backup_path.exists():
+            backup_path.write_text(
+                HOSTS_PATH.read_text(encoding="utf-8"),
+                encoding="utf-8"
+            )
+    except Exception as e:
+        print(f"Failed to create backup: {e}")
+        return False
 
     with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
         file.writelines(lines)
