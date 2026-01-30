@@ -58,6 +58,7 @@ def write_hosts_file(lines):
     with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
         file.writelines(lines)
 
+    return True
 
 def host_exist(domain,lines):
 
@@ -105,11 +106,7 @@ def add_host_entry(ip, domain):
 
     lines.append(f"{ip}\t{domain}\n")
 
-    success = write_hosts_file(lines)#write back to file for the new host addition
-    print(success)
-    if success:
-        # dnsflush()#flush DNS cache after adding new host entry
-        return True
+    return write_hosts_file(lines)#write back to file for the new host addition
 
 def remove_host_entry(domain):
 
