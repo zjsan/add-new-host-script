@@ -3,15 +3,16 @@ import subprocess
 from pathlib import Path
 
 
-DEBUG = True
-
 def get_hosts_path():
 
-    # .parent gets the root directory of the project for the test hosts file
-    # for development testing purposes
-    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    DEBUG = True
 
     if DEBUG:
+
+        # .parent gets the root directory of the project for the test hosts file
+        # for development testing purposes
+        PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
         return PROJECT_ROOT / "test_hosts.txt"
 
     system = platform.system()
@@ -19,8 +20,8 @@ def get_hosts_path():
     #actual hosts file paths
     if system == "Windows":
         return Path(r"C:\Windows\System32\drivers\etc\hosts")
-    return Path("/etc/hosts")
-    
+    elif system in ("Linux", "Darwin"):
+        return Path("/etc/hosts")
     raise RuntimeError("Unsupported OS for now")
     
 
@@ -85,8 +86,6 @@ def dnsflush():
         ["ipconfig", "/flushdns"],
         check=True,         # Raise an exception if the command fails
         shell=True,         # Required to interpret "ipconfig /flushdns" correctly as a single command
-        capture_output=True, # Capture the output
-        text=True           # Return output as a string
         )
         print("DNS cache flushed successfully.")
     except Exception as e:
@@ -123,19 +122,16 @@ def remove_host_entry(domain):
         clean = line.strip()
 
         #skip empty line and comments
+        #aand check if domain exists in line
         if clean and not clean.startswith("#") and domain in clean.split():
             removed = True
             continue
         new_lines.append(line)
 
     #write only if something was removed
-    print(removed)
     if removed:
-
-        success = write_hosts_file(new_lines)#write back to file after removal
-        if success:
-            return True
-    
+        # if the domain was found write the cleaned list
+        return write_hosts_file(new_lines)
     return removed
         
 
