@@ -58,6 +58,7 @@ def write_hosts_file(lines):
     with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
         file.writelines(lines)
 
+
 def host_exist(domain,lines):
 
     #remove whitespace and comments
@@ -104,10 +105,11 @@ def add_host_entry(ip, domain):
 
     lines.append(f"{ip}\t{domain}\n")
 
-    write_hosts_file(lines)#write back to file for the new host addition
-   # dnsflush()#flush DNS cache after adding new host entry
-
-    return True
+    success = write_hosts_file(lines)#write back to file for the new host addition
+    print(success)
+    if success:
+        # dnsflush()#flush DNS cache after adding new host entry
+        return True
 
 def remove_host_entry(domain):
 
@@ -117,7 +119,6 @@ def remove_host_entry(domain):
     removed = False
 
     #iterate through lines and filter out the one to remove
-
     for line in lines:
 
         #remove whitespace and comments
@@ -130,9 +131,13 @@ def remove_host_entry(domain):
         new_lines.append(line)
 
     #write only if something was removed
+    print(removed)
     if removed:
-        write_hosts_file(new_lines)#write back to file after removal
-        return True
+
+        success = write_hosts_file(new_lines)#write back to file after removal
+        if success:
+            # dnsflush()#flush DNS cache after removing host entry
+            return True
     
     return removed
         
