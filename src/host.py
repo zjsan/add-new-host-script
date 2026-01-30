@@ -11,9 +11,9 @@ def get_hosts_path():
 
         # .parent gets the root directory of the project for the test hosts file
         # for development testing purposes
-        PROJECT_ROOT = Path(__file__).resolve().parent.parent
+        #PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-        return PROJECT_ROOT / "test_hosts.txt"
+        return Path("/mnt/c/temp_test/hosts.txt")
 
     system = platform.system()
 
@@ -53,8 +53,8 @@ def write_hosts_file(lines):
             )
 
     except Exception as e:
-        print(f"Failed to create backup: {e}")
-        print("Aborting to prevent potential data loss.")
+        print(f"\n Failed to create backup: {e}")
+        print(" Aborting to prevent potential data loss.")
         return False
 
     with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
