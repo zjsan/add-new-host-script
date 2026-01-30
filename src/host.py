@@ -53,6 +53,7 @@ def write_hosts_file(lines):
 
     except Exception as e:
         print(f"Failed to create backup: {e}")
+        print("Aborting to prevent potential data loss.")
         return False
 
     with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
@@ -133,7 +134,6 @@ def remove_host_entry(domain):
 
         success = write_hosts_file(new_lines)#write back to file after removal
         if success:
-            # dnsflush()#flush DNS cache after removing host entry
             return True
     
     return removed
