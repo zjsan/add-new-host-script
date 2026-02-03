@@ -46,13 +46,16 @@ def write_hosts_file(lines):
     try:
         #cheeck if backup already exists before creating
         #back up only the original hosts file once
-        if not backup_path.exists() and HOSTS_PATH.exists():
-            backup_path.write_text(
-                HOSTS_PATH.read_text(encoding="utf-8"),
-                encoding="utf-8"
-            )
-        else:
-            backup_path.write_text("# Initial Hosts File Created by Tool\n", encoding="utf-8")
+        if not backup_path.exists():
+            # Check if original exists first
+            if HOSTS_PATH.exists():
+                backup_path.write_text(
+                    HOSTS_PATH.read_text(encoding="utf-8"),
+                    encoding="utf-8"    
+                )
+            else:
+                
+                backup_path.write_text("# Initial Hosts File Created by Tool\n", encoding="utf-8")
 
     except Exception as e:
         print(f"\n Failed to create backup: {e}")
