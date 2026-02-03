@@ -43,12 +43,13 @@ def write_hosts_file(lines):
     #create a backup before writing
     backup_path = HOSTS_PATH.with_suffix(".bak")
 
+    #check orignal host if exists
     if not HOSTS_PATH.exists():
         print("CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
         print(f"Expected path: {HOSTS_PATH}")
         print("This may indicate a system error or OS corruption. Aborting.")
         return False
-        
+    
     try:
         #cheeck if backup already exists before creating
         #back up only the original hosts file once
@@ -59,18 +60,18 @@ def write_hosts_file(lines):
                     HOSTS_PATH.read_text(encoding="utf-8"),
                     encoding="utf-8"    
                 )
-            else:
-                backup_path.write_text("# Initial Hosts File Created by Tool\n", encoding="utf-8")
+            
+        #perform the write operation
+        with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
+            file.writelines(lines)
+
+        return True
 
     except Exception as e:
         print(f"\n Failed to create backup: {e}")
         print(" Aborting to prevent potential data loss.")
         return False
 
-    with HOSTS_PATH.open("w", encoding="utf-8", newline="") as file:
-        file.writelines(lines)
-
-    return True
 
 def host_exist(domain,lines):
 
