@@ -47,6 +47,14 @@ def main():
                 print(f"\n Host entry removed: {production_domain}\n")
             else:
                 print(f"\n Host failed to remove or not found: {production_domain}\n")
+                
+        elif choice == "3":
+            success = fix_glued_entries()
+
+            if success:
+                print(f"\n Glued entries fixed successfully.\n")
+            else:
+                print(f"\n Failed to fix glued entries.\n")
 
         elif choice == "0":
             print("\n Exiting...\n")
