@@ -1,5 +1,6 @@
 import platform
 import subprocess
+import re
 from pathlib import Path
 
 
@@ -150,5 +151,7 @@ def fix_glued_entries(ip, domain):
     lines = read_hosts_file()
     new_lines = []
     fixed = False
+
+
         
 
