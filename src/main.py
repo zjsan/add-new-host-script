@@ -11,6 +11,7 @@ def show_menu():
     print("Select an option below then press Enter:\n")
     print("[1] Add host entry")
     print("[2] Remove host entry")
+    print("[3] Fix entry error (glued entries)")
     print("[0] Exit")
 
 def is_admin():
