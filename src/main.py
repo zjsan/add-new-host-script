@@ -49,10 +49,11 @@ def main():
                 print(f"\n Host failed to remove or not found: {production_domain}\n")
                 
         elif choice == "3":
-            success = fix_glued_entries()
+            success = fix_glued_entries(production_ip, production_domain)
 
             if success:
                 print(f"\n Glued entries fixed successfully.\n")
+                #print tail of hosts file to confirm fix
             else:
                 print(f"\n Failed to fix glued entries.\n")
 

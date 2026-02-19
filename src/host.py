@@ -144,5 +144,11 @@ def remove_host_entry(domain):
         # if the domain was found write the cleaned list
         return write_hosts_file(new_lines)
     return removed
+
+def fix_glued_entries(ip, domain):
+
+    lines = read_hosts_file()
+    new_lines = []
+    fixed = False
         
 
