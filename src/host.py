@@ -163,14 +163,15 @@ def fix_glued_entries(ip, domain):
     escapeDomain = re.escape(domain)
 
     #the pattern to search for glued entries, ensuring the IP is not preceded by whitespace and the domain is a separate token
-    #it looks for (Any non-space char) + (possible tabs/spaces) + (The IP and Domain)
+    #it looks for for valid domain, junk characters, then the IP and domain without proper separation
     pattern = rf"([a-zA-Z0-9\.-]+)([nt])({escapeIP})([nt])({escapeDomain})"
 
     #start searching the pattern from the file
     if re.search(pattern, content):
 
         #if found, replace with the correct format (newline before the IP and domain)
-        replacement = r"\1\n\2\t\3"
+        #rebuilding the line and disregarding the junk characters in between
+        replacement = r"\1\n\3\t\5"
         fixed_content = re.sub(pattern, replacement, content)
 
         new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
