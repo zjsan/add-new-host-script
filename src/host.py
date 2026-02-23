@@ -166,7 +166,7 @@ def fix_glued_entries(ip, domain):
     #it looks for for valid domain, junk characters, then the IP and domain without proper separation
     #sample pattern: "0.0.0.1 mssplus.mcafee.comn13.251.136.207tapp.sdg-dashboard.com" "mssplus.mcafee.com13.251.136.207 app.sdg-dashboard.com"
     #sample pattern: "127.0.0.113.251.136.207"
-    pattern = rf"([a-zA-Z0-9\.-]+)([nt]?)({escapeIP})([\snt]*)({escapeDomain})"
+    pattern = rf"([a-zA-Z0-9\.-]+?)([nt]*)({escapeIP})([\snt]*)({escapeDomain})"
 
     #start searching the pattern from the file
     if re.search(pattern, content):
