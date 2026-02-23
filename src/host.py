@@ -157,10 +157,24 @@ def fix_glued_entries(ip, domain):
         print("CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
         return False
 
+    #escape IP and domain for regex operations
+    #considering special characters for the domain and IP
     escapeIP = re.escape(ip)
     escapeDomain = re.escape(domain)
 
+    #the pattern to search for glued entries, ensuring the IP is not preceded by whitespace and the domain is a separate token
+    #it looks for (Any non-space char) + (possible tabs/spaces) + (The IP and Domain)
     pattern = rf"([^\s])[\t]*({escapeIP})\s+{escapeDomain}"
+
+    #start searching the pattern from the file
+    if re.search(pattern, content):
+
+        #if found, replace with the correct format (newline before the IP and domain)
+        replacement = rf"\1\n\2"
+        fixed_content = re.sub(pattern, replacement, content)
+
+
+      
 
 
 
