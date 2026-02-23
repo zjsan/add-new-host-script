@@ -46,9 +46,9 @@ def write_hosts_file(lines):
 
     #check orignal host if exists
     if not HOSTS_PATH.exists():
-        print("CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
-        print(f"Expected path: {HOSTS_PATH}")
-        print("This may indicate a system error or OS corruption. Aborting.")
+        print(" CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
+        print(f" Expected path: {HOSTS_PATH}")
+        print(" This may indicate a system error or OS corruption. Aborting.")
         return False
     
     try:
@@ -99,9 +99,9 @@ def dnsflush():
         check=True,         # Raise an exception if the command fails
         shell=True,         # Required to interpret "ipconfig /flushdns" correctly as a single command
         )
-        print("DNS cache flushed successfully.")
+        print(" DNS cache flushed successfully.")
     except Exception as e:
-        print(f"Failed to flush DNS cache: {e}")
+        print(f" Failed to flush DNS cache: {e}")
 
 
 def add_host_entry(ip, domain):
@@ -154,7 +154,7 @@ def fix_glued_entries(ip, domain):
     try: 
         content = HOSTS_PATH.read_text(encoding="utf-8")
     except FileNotFoundError:
-        print("CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
+        print(" CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
         return False
 
     #escape IP and domain for regex operations
@@ -178,7 +178,7 @@ def fix_glued_entries(ip, domain):
         if write_hosts_file(new_lines):
             return True
 
-    print("No glued entries found")
+    print(" No glued entries found")
     return False
 
 
