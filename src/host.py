@@ -164,7 +164,7 @@ def fix_glued_entries(ip, domain):
 
     #the pattern to search for glued entries, ensuring the IP is not preceded by whitespace and the domain is a separate token
     #it looks for (Any non-space char) + (possible tabs/spaces) + (The IP and Domain)
-    pattern = rf"([^\s]).*?({escapeIP})\D*({escapeDomain})"
+    pattern = rf"([a-zA-Z0-9\.-]+)([nt])({escapeIP})([nt])({escapeDomain})"
 
     #start searching the pattern from the file
     if re.search(pattern, content):
