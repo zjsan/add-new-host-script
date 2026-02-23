@@ -170,7 +170,7 @@ def fix_glued_entries(ip, domain):
     if re.search(pattern, content):
 
         #if found, replace with the correct format (newline before the IP and domain)
-        replacement = rf"\1\n\2"
+        replacement = r"\1\n\2\t\3"
         fixed_content = re.sub(pattern, replacement, content)
 
         new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
