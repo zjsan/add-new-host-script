@@ -160,7 +160,7 @@ def fix_glued_entries(ip, domain):
     escapeIP = re.escape(ip)
     escapeDomain = re.escape(domain)
 
-    pattern = rf"([^\s])[\t]*({escapeIP})\s+"
+    pattern = rf"([^\s])[\t]*({escapeIP})\s+{escapeDomain}"
 
 
 
