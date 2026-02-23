@@ -1,6 +1,6 @@
 import sys 
 import ctypes
-from host import add_host_entry, remove_host_entry
+from host import add_host_entry, remove_host_entry, fix_glued_entries
 
 production_ip = "13.251.136.207"
 production_domain = "app.sdg-dashboard.com"

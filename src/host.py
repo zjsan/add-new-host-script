@@ -173,6 +173,15 @@ def fix_glued_entries(ip, domain):
         replacement = rf"\1\n\2"
         fixed_content = re.sub(pattern, replacement, content)
 
+        new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
+
+        if write_hosts_file(new_lines):
+            return True
+
+    print("No glued entries found")
+    return False
+
+
 
       
 
