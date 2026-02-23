@@ -148,9 +148,10 @@ def remove_host_entry(domain):
 
 def fix_glued_entries(ip, domain):
 
-    lines = read_hosts_file()
-    new_lines = []
-    fixed = False
+    HOSTS_PATH = get_hosts_path()
+    
+
+
 
 
         
