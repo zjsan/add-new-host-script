@@ -162,6 +162,12 @@ def fix_glued_entries(ip, domain):
     escapeIP = re.escape(ip)
     escapeDomain = re.escape(domain)
 
+    #Regex pattern seperately created to address specific glued entry scenerios
+
+    #pattern to match valid IP addresses (IPv4) for the regex search
+    ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
+
+
     #the pattern to search for glued entries, ensuring the IP is not preceded by whitespace and the domain is a separate token
     #it looks for for valid domain, junk characters, then the IP and domain without proper separation
     #sample pattern: "0.0.0.1 mssplus.mcafee.comn13.251.136.207tapp.sdg-dashboard.com" "mssplus.mcafee.com13.251.136.207 app.sdg-dashboard.com"
