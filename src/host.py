@@ -177,15 +177,27 @@ def fix_glued_entries(ip, domain):
     pattern2 = r"(?:\d{1,3}\.){3}\d{1,3}"
     replacement2 = r"\1\n\2"
 
+    #condition checks for the patterns
+    if pattern_exists(pattern1, content, replacement1):
+        case1 = True
+        print(" Case 1: Glued entries with domain followed by IP found and fixed.")
+        return case1
+    elif pattern_exists(pattern2, content, replacement2):
+        case2 = True
+        print(" Case 2: Glued entries with valid IP addresses found and fixed.")
+        return case2
 
-    
-    def pattern_exists(pattern, content):
+    else:
+        print(" RegEx search completed. Can't find any glued entries matching the defined patterns.")
+        return False
+
+    def pattern_exists(pattern, content, replacement):
         #start searching the pattern from the file
-        if re.search(pattern, content):
+        if re.search(pattern, content,replacement):
 
             #if found, replace with the correct format (newline before the IP and domain)
             #rebuilding the line and disregarding the junk characters in between
-            replacement = r"\1\n\3\t\5"
+
             fixed_content = re.sub(pattern, replacement, content)
 
             new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
