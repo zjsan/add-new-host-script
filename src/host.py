@@ -149,9 +149,24 @@ def remove_host_entry(domain):
 
 def fix_glued_entries(ip, domain):
 
+    def pattern_exists(pattern, content, replacement):
+        #start searching the pattern from the file
+        if re.search(pattern,content):
+
+            #if found, replace with the correct format (newline before the IP and domain)
+            #rebuilding the line and disregarding the junk characters in between
+
+            fixed_content = re.sub(pattern, replacement, content)
+
+            new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
+
+            if write_hosts_file(new_lines):
+                return True
+        else:
+            print(" No glued entries found")
+            return False
+
     HOSTS_PATH = get_hosts_path()
-    case1 = False
-    case2 = False
 
     try: 
         content = HOSTS_PATH.read_text(encoding="utf-8")
@@ -174,39 +189,22 @@ def fix_glued_entries(ip, domain):
 
     #pattern to match valid IP addresses (IPv4) for the regex search
     #sample pattern: "127.0.0.113.251.136.207"
-    pattern2 = r"(?:\d{1,3}\.){3}\d{1,3}"
+    ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
+    pattern2 = rf"({ip_pattern})({escapeIP})\b"
     replacement2 = r"\1\n\2"
 
     #condition checks for the patterns
     if pattern_exists(pattern1, content, replacement1):
-        case1 = True
         print(" Case 1: Glued entries with domain followed by IP found and fixed.")
-        return case1
+        return True 
     elif pattern_exists(pattern2, content, replacement2):
-        case2 = True
         print(" Case 2: Glued entries with valid IP addresses found and fixed.")
-        return case2
-
+        return True
     else:
         print(" RegEx search completed. Can't find any glued entries matching the defined patterns.")
         return False
 
-    def pattern_exists(pattern, content, replacement):
-        #start searching the pattern from the file
-        if re.search(pattern, content,replacement):
 
-            #if found, replace with the correct format (newline before the IP and domain)
-            #rebuilding the line and disregarding the junk characters in between
-
-            fixed_content = re.sub(pattern, replacement, content)
-
-            new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
-
-            if write_hosts_file(new_lines):
-                return True
-
-        print(" No glued entries found")
-        return False
 
 
 
