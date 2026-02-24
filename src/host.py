@@ -162,9 +162,7 @@ def fix_glued_entries(ip, domain):
 
             if write_hosts_file(new_lines):
                 return True
-        else:
-            print(" No glued entries found")
-            return False
+        return False
 
     HOSTS_PATH = get_hosts_path()
 
@@ -193,12 +191,19 @@ def fix_glued_entries(ip, domain):
     pattern2 = rf"({ip_pattern})({escapeIP})\b"
     replacement2 = r"\1\n\2"
 
+    
+    pattern3 = rf"({ip_pattern})([a-zA-Z0-9\.-]+?)([nt]*)({escapeIP})([\snt]*)({escapeDomain})"
+    replacement3 = r"\1\n\4\n\6"
+
     #condition checks for the patterns
     if pattern_exists(pattern1, content, replacement1):
         print(" Case 1: Glued entries with domain followed by IP found and fixed.")
         return True 
     elif pattern_exists(pattern2, content, replacement2):
         print(" Case 2: Glued entries with valid IP addresses found and fixed.")
+        return True
+    elif pattern_exists(pattern3, content, replacement3):
+        print(" Case 3: Glued entries with IP followed by domain found and fixed.")
         return True
     else:
         print(" RegEx search completed. Can't find any glued entries matching the defined patterns.")
