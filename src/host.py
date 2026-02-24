@@ -149,8 +149,6 @@ def remove_host_entry(domain):
 
 def fix_glued_entries(ip, domain):
 
-    modified = False
-
     def pattern_exists(pattern, content, replacement):
         #start searching the pattern from the file
         if re.search(pattern,content):
@@ -164,7 +162,7 @@ def fix_glued_entries(ip, domain):
 
             if write_hosts_file(new_lines):
                 return True
-        return False
+            
 
     HOSTS_PATH = get_hosts_path()
 
@@ -200,20 +198,16 @@ def fix_glued_entries(ip, domain):
     #condition checks for the patterns
     if pattern_exists(pattern1, content, replacement1):
         print(" Case 1: Glued entries with domain followed by IP found and fixed.")
-        modified = True
-
-    if pattern_exists(pattern2, content, replacement2):
+        return True 
+    elif pattern_exists(pattern2, content, replacement2):
         print(" Case 2: Glued entries with valid IP addresses found and fixed.")
-        modified = True
-
-    if pattern_exists(pattern3, content, replacement3):
+        return True
+    elif pattern_exists(pattern3, content, replacement3):
         print(" Case 3: Glued entries with IP followed by domain found and fixed.")
-        modified = True
-
-    if not modified:
+        return True
+    else:
         print(" RegEx search completed. Can't find any glued entries matching the defined patterns.")
-    
-    return modified
+        return False
 
 
 
