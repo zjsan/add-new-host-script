@@ -150,6 +150,8 @@ def remove_host_entry(domain):
 def fix_glued_entries(ip, domain):
 
     HOSTS_PATH = get_hosts_path()
+    case1 = False
+    case2 = False
 
     try: 
         content = HOSTS_PATH.read_text(encoding="utf-8")
@@ -164,31 +166,35 @@ def fix_glued_entries(ip, domain):
 
     #Regex pattern seperately created to address specific glued entry scenerios
 
-    #pattern to match valid IP addresses (IPv4) for the regex search
-    ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
-
-
     #the pattern to search for glued entries, ensuring the IP is not preceded by whitespace and the domain is a separate token
     #it looks for for valid domain, junk characters, then the IP and domain without proper separation
     #sample pattern: "0.0.0.1 mssplus.mcafee.comn13.251.136.207tapp.sdg-dashboard.com" "mssplus.mcafee.com13.251.136.207 app.sdg-dashboard.com"
+    pattern1 = rf"([a-zA-Z0-9\.-]+?)([nt]*)({escapeIP})([\snt]*)({escapeDomain})"
+    replacement1 = r"\1\n\3\t\5"
+
+    #pattern to match valid IP addresses (IPv4) for the regex search
     #sample pattern: "127.0.0.113.251.136.207"
-    pattern = rf"([a-zA-Z0-9\.-]+?)([nt]*)({escapeIP})([\snt]*)({escapeDomain})"
+    pattern2 = r"(?:\d{1,3}\.){3}\d{1,3}"
+    replacement2 = r"\1\n\2"
 
-    #start searching the pattern from the file
-    if re.search(pattern, content):
 
-        #if found, replace with the correct format (newline before the IP and domain)
-        #rebuilding the line and disregarding the junk characters in between
-        replacement = r"\1\n\3\t\5"
-        fixed_content = re.sub(pattern, replacement, content)
+    
+    def pattern_exists(pattern, content):
+        #start searching the pattern from the file
+        if re.search(pattern, content):
 
-        new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
+            #if found, replace with the correct format (newline before the IP and domain)
+            #rebuilding the line and disregarding the junk characters in between
+            replacement = r"\1\n\3\t\5"
+            fixed_content = re.sub(pattern, replacement, content)
 
-        if write_hosts_file(new_lines):
-            return True
+            new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
 
-    print(" No glued entries found")
-    return False
+            if write_hosts_file(new_lines):
+                return True
+
+        print(" No glued entries found")
+        return False
 
 
 
