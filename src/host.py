@@ -178,7 +178,7 @@ def fix_glued_entries(ip, domain):
         },
         {
             "name": "IP glued to another IP",
-            "pattern": rf"({ip_pattern})({escaped_ip})",
+            "pattern": rf"\b({ip_pattern})({escaped_ip})\b",
             "replacement": r"\1\n\2"
         },
         {
