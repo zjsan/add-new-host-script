@@ -168,27 +168,30 @@ def fix_glued_entries(ip, domain):
     domain_pattern = r"[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+"
 
 
-    pattern2 = rf"({ip_pattern})({escapeIP})\b"
-    replacement2 = r"\1\n\2"
+    #Glued Patterns
 
-    
-    pattern3 = rf"({ip_pattern})([a-zA-Z0-9\.-]+?)([nt]*)({escapeIP})([\snt]*)({escapeDomain})"
-    replacement3 = r"\1\n\4\n\6"
-
-    #condition checks for the patterns
-    if pattern_exists(pattern1, content, replacement1):
-        print(" Case 1: Glued entries with domain followed by IP found and fixed.")
-        return True 
-    elif pattern_exists(pattern2, content, replacement2):
-        print(" Case 2: Glued entries with valid IP addresses found and fixed.")
-        return True
-    elif pattern_exists(pattern3, content, replacement3):
-        print(" Case 3: Glued entries with IP followed by domain found and fixed.")
-        return True
-    else:
-        print(" RegEx search completed. Can't find any glued entries matching the defined patterns.")
-        return False
-
+    patterns = [
+        {
+            "name": "Domain + literal n + IP + literal t + Domain",
+            "pattern": rf"({domain_pattern})n({escaped_ip})t({escaped_domain})",
+            "replacement": r"\1\n\2\t\3"
+        },
+        {
+            "name": "IP glued to another IP",
+            "pattern": rf"({ip_pattern})({escaped_ip})",
+            "replacement": r"\1\n\2"
+        },
+        {
+            "name": "Domain glued to IP",
+            "pattern": rf"({domain_pattern})({escaped_ip})",
+            "replacement": r"\1\n\2"
+        },
+        {
+            "name": "IP glued to Domain",
+            "pattern": rf"({escaped_ip})({domain_pattern})",
+            "replacement": r"\1\n\2"
+        },
+    ]
 
 
 
