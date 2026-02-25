@@ -196,6 +196,11 @@ def fix_glued_entries(ip, domain):
             "pattern": rf"({ip_pattern})([\snt]+)({domain_pattern})([\snt]+)({escaped_ip})([\snt]+)({domain_pattern})",
             "replacement": r"\1\t\3\n\5\t\7"
         },
+        {
+            "name": "IP + whitespace + IP + whitespace + Domain",
+            "pattern": rf"({ip_pattern})([\snt]+)({escaped_ip})([\snt]+)({domain_pattern})",
+            "replacement": r"\1\n\3\t\5"
+        },
     ]
 
     #loop through patters and search for the matches
