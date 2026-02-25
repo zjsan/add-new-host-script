@@ -162,6 +162,7 @@ def fix_glued_entries(ip, domain):
 
             if write_hosts_file(new_lines):
                 return True
+            return False
             
 
     HOSTS_PATH = get_hosts_path()
