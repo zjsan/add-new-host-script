@@ -205,6 +205,22 @@ def fix_glued_entries(ip, domain):
             #perform the replacement to fix the glued entries
             fixed_content = re.sub(entry["pattern"], entry["replacement"], content, count=1)
 
+            #appending the fixed content ensuring proper newlines are maintained
+            new_lines = fixed_content.splitlines(keepends=True)
+
+            #calling write function to update the file
+            if write_hosts_file(new_lines):
+                print(f"Successfully fixed glued entries for pattern: {entry['name']}")
+                dnsflush() #flush DNS cache after fixing
+                return True
+            else:
+                print(f"Failed to write fixed content for pattern: {entry['name']}")
+                return False
+    
+    #fallback if no patterns matched
+    print("No glued entry patterns matched. No changes made.")
+    return False
+
 
 
       
