@@ -148,21 +148,6 @@ def remove_host_entry(domain):
 
 
 def fix_glued_entries(ip, domain):
-
-    def pattern_exists(pattern, content, replacement):
-        #start searching the pattern from the file
-        if re.search(pattern,content):
-
-            #if found, replace with the correct format (newline before the IP and domain)
-            #rebuilding the line and disregarding the junk characters in between
-
-            fixed_content = re.sub(pattern, replacement, content)
-
-            new_lines = fixed_content.splitlines(keepends=True)#split fixed lines while keeping newline characters
-
-            if write_hosts_file(new_lines):
-                return True
-            return False
             
 
     HOSTS_PATH = get_hosts_path()
