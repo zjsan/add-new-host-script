@@ -169,7 +169,7 @@ def fix_glued_entries(ip, domain):
 
 
     #Glued Patterns
-
+    #changed if-else codntion to dictionary of patters for better readability and maintainability
     patterns = [
         {
             "name": "Domain + literal n + IP + literal t + Domain",
@@ -193,6 +193,17 @@ def fix_glued_entries(ip, domain):
         },
     ]
 
+    #loop through patters and search for the matches
+
+    for entry in patterns: 
+        print(f"Checking pattern: {entry['name']}")
+
+        #start searching for the pattern in the content
+        if re.search(entry["pattern"], content):
+            print(f"Match found: {entry['name']}")
+
+            #perform the replacement to fix the glued entries
+            fixed_content = re.sub(entry["pattern"], entry["replacement"], content, count=1)
 
 
 
