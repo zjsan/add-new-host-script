@@ -160,8 +160,8 @@ def fix_glued_entries(ip, domain):
 
     #escape IP and domain for regex operations
     #considering special characters for the domain and IP
-    escapeIP = re.escape(ip)
-    escapeDomain = re.escape(domain)
+    escaped_ip = re.escape(ip)
+    escaped_domain = re.escape(domain)
 
     #reusable patterns 
     ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
@@ -196,11 +196,11 @@ def fix_glued_entries(ip, domain):
     #loop through patters and search for the matches
 
     for entry in patterns: 
-        print(f"Checking pattern: {entry['name']}")
+        print(f" Checking pattern: {entry['name']}")
 
         #start searching for the pattern in the content
         if re.search(entry["pattern"], content):
-            print(f"Match found: {entry['name']}")
+            print(f" Match found: {entry['name']}")
 
             #perform the replacement to fix the glued entries
             fixed_content = re.sub(entry["pattern"], entry["replacement"], content, count=1)
@@ -210,15 +210,15 @@ def fix_glued_entries(ip, domain):
 
             #calling write function to update the file
             if write_hosts_file(new_lines):
-                print(f"Successfully fixed glued entries for pattern: {entry['name']}")
-                dnsflush() #flush DNS cache after fixing
+                print(f" Successfully fixed glued entries for pattern: {entry['name']}")
+                #dnsflush() #flush DNS cache after fixing
                 return True
             else:
-                print(f"Failed to write fixed content for pattern: {entry['name']}")
+                print(f" Failed to write fixed content for pattern: {entry['name']}")
                 return False
     
     #fallback if no patterns matched
-    print("No glued entry patterns matched. No changes made.")
+    print(" No glued entry patterns matched. No changes made.")
     return False
 
 
