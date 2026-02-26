@@ -149,11 +149,9 @@ def remove_host_entry(domain):
 
 def fix_glued_entries(ip, domain):
             
-
-    HOSTS_PATH = get_hosts_path()
-
     try: 
-        content = HOSTS_PATH.read_text(encoding="utf-8")
+        lines = read_hosts_file()
+        content = "".join(lines)
     except FileNotFoundError:
         print(" CRITICAL ERROR: Windows 'hosts' file is missing from the system.")
         return False
