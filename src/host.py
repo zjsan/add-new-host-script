@@ -174,7 +174,7 @@ def fix_glued_entries(ip, domain):
     patterns = [
         {
             "name": "Domain + literal n + IP + literal t + Domain",
-            "pattern": rf"({ip_pattern}){junk}({domain_pattern}){junk}({escaped_ip}){junk}({escaped_domain})\b",
+            "pattern": rf"((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{{2,}})n({escaped_ip})t(\S+)",#specific pattern for the glued entry with literal 'n' and 't' between domain and IP
             "replacement": r"\1\n\2\t\3"
         },
         {
