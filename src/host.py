@@ -167,13 +167,14 @@ def fix_glued_entries(ip, domain):
     ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
     domain_pattern = r"[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+"
 
+    junk = r"[nt\s]+"
 
     #Glued Patterns
     #changed if-else codntion to dictionary of patters for better readability and maintainability
     patterns = [
         {
             "name": "Domain + literal n + IP + literal t + Domain",
-            "pattern": rf"({domain_pattern})n({escaped_ip})t({escaped_domain})",
+            "pattern": rf"({ip_pattern}){junk}({domain_pattern}){junk}({escaped_ip}){junk}({escaped_domain})\b",
             "replacement": r"\1\n\2\t\3"
         },
         {
