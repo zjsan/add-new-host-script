@@ -167,8 +167,6 @@ def fix_glued_entries(ip, domain):
     ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
     domain_pattern = r"[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+"
 
-    junk = r"[nt\s]+"
-
     #Glued Patterns
     #changed if-else codntion to dictionary of patters for better readability and maintainability
     patterns = [
@@ -209,12 +207,13 @@ def fix_glued_entries(ip, domain):
     for entry in patterns: 
         print(f" Checking pattern: {entry['name']}")
 
-        #start searching for the pattern in the content
-        if re.search(entry["pattern"], content):
+        #perform the replacement to fix the glued entries
+        fixed_content,count = re.subn(entry["pattern"], entry["replacement"], content, count=1)
+        
+        #if matched found and replacement was made, write the fixed content back to the file
+        if count > 0: 
+            #start searching for the pattern in the content
             print(f" Match found: {entry['name']}")
-
-            #perform the replacement to fix the glued entries
-            fixed_content = re.sub(entry["pattern"], entry["replacement"], content, count=1)
 
             #appending the fixed content ensuring proper newlines are maintained
             new_lines = fixed_content.splitlines(keepends=True)
@@ -228,9 +227,7 @@ def fix_glued_entries(ip, domain):
                 print(f" Failed to write fixed content for pattern: {entry['name']}")
                 return False
     
-    #fallback if no patterns matched
-    print(" No glued entry patterns matched. No changes made.")
-    return False
+   
 
 
 
