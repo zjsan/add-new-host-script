@@ -24,10 +24,10 @@ def is_admin():
 
 def main():
 
-   if not is_admin():
-       print("This script requires administrative privileges to run.")
-       print("Please run the script as an administrator.")
-       sys.exit(1)
+    if not is_admin():
+        print("This script requires administrative privileges to run.")
+        print("Please run the script as an administrator.")
+        sys.exit(1)
 
     while True:
         show_menu()
