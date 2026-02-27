@@ -176,7 +176,7 @@ def fix_glued_entries(ip, domain):
         {
             "name": "Domain + literal n + IP + literal t + Domain",
             "pattern": rf"((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{{2,}})n({escaped_ip})t(\S+)",#specific pattern for the glued entry with literal 'n' and 't' between domain and IP
-            "replacement": r"\1\n\n\2\t\3"
+            "replacement": r"\1\n\2\t\3"
         },
         {
             "name": "IP glued to another IP",
@@ -236,23 +236,37 @@ def restore_hosts():
 
     if not backup_path.exists():
         print(" No backup found to restore.")
+        print(" Creating a backup of the current hosts file")
+
+        # Check if original exists first
+        if HOSTS_PATH.exists():
+                backup_path.write_text(
+                    HOSTS_PATH.read_text(encoding="utf-8"),
+                    encoding="utf-8"    
+                )
+        print(" Backup created successfully. No changes made to hosts file.")        
         return False
     
     try:
-
         #read backup content and write it back to the hosts file
         content = backup_path.read_text(encoding="utf-8")
         HOSTS_PATH.write_text(content, encoding="utf-8")
-        print(" Hosts file restored from backup successfully.")
         return True
     except Exception as e:
         print(f" Failed to restore hosts file from backup: {e}")
         return False
 
       
+def file_contents():
+    contents = read_hosts_file()
 
-
-
-
+    if contents:
+        print("\n Current hosts file content: \n")
+        for line in contents:
+            print(line, end="")
+        return True
+    else:
+        print(" Hosts file is empty or missing.")
+        return False
         
 

@@ -1,6 +1,6 @@
 import sys 
 import ctypes
-from host import add_host_entry, remove_host_entry, fix_glued_entries, restore_hosts, dnsflush
+from host import add_host_entry, remove_host_entry, fix_glued_entries, restore_hosts, dnsflush, file_contents
 
 production_ip = "13.251.136.207"
 production_domain = "app.sdg-dashboard.com"
@@ -13,6 +13,7 @@ def show_menu():
     print("[2] Remove host entry")
     print("[3] Fix entry error (glued entries)")
     print("[4] Restore hosts file from backup")
+    print("[5] View hosts file contents")
     print("[0] Exit")
 
 def is_admin():
@@ -69,6 +70,14 @@ def main():
                 print(f"\n Hosts file restored from backup successfully.\n")
             else:
                 print(f"\n Failed to restore hosts file from backup.\n")
+                
+        elif choice == "5":
+            success = file_contents()
+
+            if success:
+                print(f"\n Hosts file contents displayed successfully.\n")
+            else:
+                print(f"\n Failed to display hosts file contents.\n")
 
         elif choice == "0":
             print("\n Exiting...\n")
