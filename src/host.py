@@ -226,8 +226,24 @@ def fix_glued_entries(ip, domain):
                 return False
     
    
+def restore_hosts():
+    HOSTS_PATH = get_hosts_path()
+    backup_path = HOSTS_PATH.with_suffix(".bak")
 
+    if not backup_path.exists():
+        print(" No backup found to restore.")
+        return False
+    
+    try:
 
+        #read backup content and write it back to the hosts file
+        content = backup_path.read_text(encoding="utf-8")
+        HOST_PATH.write_text(content, encoding="utf-8")
+        print(" Hosts file restored from backup successfully.")
+        return True
+    except Exception as e:
+        print(f" Failed to restore hosts file from backup: {e}")
+        return False
 
       
 
