@@ -111,7 +111,7 @@ def add_host_entry(ip, domain):
     lines = read_hosts_file()#read the file
 
     #check if host already exists
-    if host_exist(domain,lines):
+    if host_exist(ip,domain,lines):
         return False #host already exists
 
     #ensure the file ends with a newline before appending
@@ -122,7 +122,7 @@ def add_host_entry(ip, domain):
 
     return write_hosts_file(lines)#write back to file for the new host addition
 
-def remove_host_entry(domain):
+def remove_host_entry(ip,domain):
 
     lines = read_hosts_file()
     new_lines = []#list to hold lines after removal
