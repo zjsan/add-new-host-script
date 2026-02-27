@@ -171,7 +171,7 @@ def fix_glued_entries(ip, domain):
         {
             "name": "Domain + literal n + IP + literal t + Domain",
             "pattern": rf"((?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{{2,}})n({escaped_ip})t(\S+)",#specific pattern for the glued entry with literal 'n' and 't' between domain and IP
-            "replacement": r"\1\n\2\t\3"
+            "replacement": r"\1\n\n\2\t\3"
         },
         {
             "name": "IP glued to another IP",
@@ -237,7 +237,7 @@ def restore_hosts():
 
         #read backup content and write it back to the hosts file
         content = backup_path.read_text(encoding="utf-8")
-        HOST_PATH.write_text(content, encoding="utf-8")
+        HOSTS_PATH.write_text(content, encoding="utf-8")
         print(" Hosts file restored from backup successfully.")
         return True
     except Exception as e:
