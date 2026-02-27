@@ -225,7 +225,7 @@ def fix_glued_entries(ip, domain):
             else:
                 print(f" Failed to write fixed content for pattern: {entry['name']}")
                 return False
-    
+    return False #no patterns matched, no fixes applied
    
 def restore_hosts():
     HOSTS_PATH = get_hosts_path()
