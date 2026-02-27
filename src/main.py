@@ -43,13 +43,13 @@ def main():
                 print(f"\n Host already exists or failed to add: {production_ip} {production_domain}\n")
 
         elif choice == "2":
-            success = remove_host_entry(production_domain)
+            success = remove_host_entry(production_ip, production_domain)
 
             if success:
                 dnsflush() #flush DNS cache after removing entry
-                print(f"\n Host entry removed: {production_domain}\n")
+                print(f"\n Host entry removed: {production_ip} {production_domain}\n")
             else:
-                print(f"\n Host failed to remove or not found: {production_domain}\n")
+                print(f"\n Host failed to remove or not found: {production_ip} {production_domain}\n")
                 
         elif choice == "3":
             success = fix_glued_entries(production_ip, production_domain)
