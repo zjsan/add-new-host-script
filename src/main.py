@@ -1,6 +1,6 @@
 import sys 
 import ctypes
-from host import add_host_entry, remove_host_entry, fix_glued_entries, restore_hosts
+from host import add_host_entry, remove_host_entry, fix_glued_entries, restore_hosts, dnsflush
 
 production_ip = "13.251.136.207"
 production_domain = "app.sdg-dashboard.com"
@@ -37,6 +37,7 @@ def main():
             success = add_host_entry(production_ip, production_domain)
 
             if success:
+                dnsflush() #flush DNS cache after adding new entry
                 print(f"\n Host entry added: {production_ip} {production_domain}\n")
             else:
                 print(f"\n Host already exists or failed to add: {production_ip} {production_domain}\n")
@@ -45,6 +46,7 @@ def main():
             success = remove_host_entry(production_domain)
 
             if success:
+                dnsflush() #flush DNS cache after removing entry
                 print(f"\n Host entry removed: {production_domain}\n")
             else:
                 print(f"\n Host failed to remove or not found: {production_domain}\n")
@@ -53,18 +55,21 @@ def main():
             success = fix_glued_entries(production_ip, production_domain)
 
             if success:
+                dnsflush() #flush DNS cache after fixing glued entries
                 print(f"\n Glued entries fixed successfully.\n")
                 #print tail of hosts file to confirm fix
             else:
                 print(f"\n Failed to fix glued entries.\n")
+
         elif choice == "4":
             success = restore_hosts()
 
             if success:
+                dnsflush() #flush DNS cache after restoring hosts file
                 print(f"\n Hosts file restored from backup successfully.\n")
             else:
                 print(f"\n Failed to restore hosts file from backup.\n")
-                
+
         elif choice == "0":
             print("\n Exiting...\n")
             sys.exit(0)

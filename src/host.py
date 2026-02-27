@@ -219,7 +219,6 @@ def fix_glued_entries(ip, domain):
             #calling write function to update the file
             if write_hosts_file(new_lines):
                 print(f" Successfully fixed glued entries for pattern: {entry['name']}")
-                #dnsflush() #flush DNS cache after fixing
                 return True
             else:
                 print(f" Failed to write fixed content for pattern: {entry['name']}")
