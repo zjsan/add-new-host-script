@@ -74,7 +74,7 @@ def write_hosts_file(lines):
         return False
 
 
-def host_exist(domain,lines):
+def host_exist(ip,domain,lines):
 
     #remove whitespace and comments
     for line in lines:
