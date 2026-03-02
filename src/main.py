@@ -75,7 +75,7 @@ def main():
             success = file_contents()
 
             if success:
-                print(f"\n Hosts file contents displayed successfully.\n")
+                print(f"\n\n Hosts file contents displayed successfully.\n")
             else:
                 print(f"\n Failed to display hosts file contents.\n")
 

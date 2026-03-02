@@ -169,7 +169,7 @@ def fix_glued_entries(ip, domain):
 
     #reusable patterns 
     ip_pattern = r"(?:\d{1,3}\.){3}\d{1,3}"
-    domain_pattern = r"[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+"
+    domain_pattern = r"(?=[^ \n]*[a-zA-Z])[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+"
 
     #Glued Patterns
     #changed if-else codntion to dictionary of patters for better readability and maintainability
