@@ -13,7 +13,8 @@ def get_hosts_path():
         # .parent gets the root directory of the project for the test hosts file
         # for development testing purposes
         #PROJECT_ROOT = Path(__file__).resolve().parent.parent
-
+        if platform.system() == "Windows":
+            return Path(r"C:\temp_test\hosts.txt")
         return Path("/mnt/c/temp_test/hosts.txt")
 
     system = platform.system()

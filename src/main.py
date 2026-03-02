@@ -25,10 +25,10 @@ def is_admin():
 
 def main():
 
-    # if not is_admin():
-    #     print("This script requires administrative privileges to run.")
-    #     print("Please run the script as an administrator.")
-    #     sys.exit(1)
+    if not is_admin():
+        print("This script requires administrative privileges to run.")
+        print("Please run the script as an administrator.")
+        sys.exit(1)
 
     while True:
         show_menu()
@@ -38,7 +38,7 @@ def main():
             success = add_host_entry(production_ip, production_domain)
 
             if success:
-                dnsflush() #flush DNS cache after adding new entry
+               # dnsflush() #flush DNS cache after adding new entry
                 print(f"\n Host entry added: {production_ip} {production_domain}\n")
             else:
                 print(f"\n Host already exists or failed to add: {production_ip} {production_domain}\n")
@@ -47,7 +47,7 @@ def main():
             success = remove_host_entry(production_ip, production_domain)
 
             if success:
-                dnsflush() #flush DNS cache after removing entry
+               # dnsflush() #flush DNS cache after removing entry
                 print(f"\n Host entry removed: {production_ip} {production_domain}\n")
             else:
                 print(f"\n Host failed to remove or not found: {production_ip} {production_domain}\n")
@@ -56,7 +56,7 @@ def main():
             success = fix_glued_entries(production_ip, production_domain)
 
             if success:
-                dnsflush() #flush DNS cache after fixing glued entries
+                #dnsflush() #flush DNS cache after fixing glued entries
                 print(f"\n Glued entries fixed successfully.\n")
                 #print tail of hosts file to confirm fix
             else:
@@ -66,7 +66,7 @@ def main():
             success = restore_hosts()
 
             if success:
-                dnsflush() #flush DNS cache after restoring hosts file
+               # dnsflush() #flush DNS cache after restoring hosts file
                 print(f"\n Hosts file restored from backup successfully.\n")
             else:
                 print(f"\n Failed to restore hosts file from backup.\n")
