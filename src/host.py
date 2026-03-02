@@ -195,15 +195,16 @@ def fix_glued_entries(ip, domain):
             "replacement": r"\1\n\2"
         },
         {
-            "name": "IP + Domain + whitespace + IP + whitespace + Domain",
-            "pattern": rf"({ip_pattern})\s+({domain_pattern})\s+({escaped_ip})\s+({domain_pattern})",
-            "replacement": r"\1\t\2\n\3\t\4"
-        },
-        {
             "name": "IP + whitespace + IP + whitespace + Domain",
             "pattern": rf"({ip_pattern})\s+({escaped_ip})\s+({domain_pattern})",
             "replacement": r"\1\n\2\t\3"
         },
+        {
+            "name": "IP + Domain + whitespace + IP + whitespace + Domain",
+            "pattern": rf"({ip_pattern})\s+({domain_pattern})\s+({escaped_ip})\s+({domain_pattern})",
+            "replacement": r"\1\t\2\n\3\t\4"
+        },
+      
     ]   
 
     #loop through patters and search for the matches
