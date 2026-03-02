@@ -244,7 +244,8 @@ def restore_hosts():
                     HOSTS_PATH.read_text(encoding="utf-8"),
                     encoding="utf-8"    
                 )
-        print(" Backup created successfully. No changes made to hosts file.")        
+        print(" Backup created successfully. No changes made to hosts file.")
+        print(" Please run the restore option again to restore from the newly created backup if needed.")        
         return False
     
     try:
