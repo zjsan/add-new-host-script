@@ -240,7 +240,7 @@ def restore_hosts():
     confirmed = input(" Are you sure you want to restore the hosts file from backup? This will overwrite the current hosts file. (y/n): ").strip().lower()
 
 
-    if confirmed != 'y':
+    if confirmed not in ['y', 'yes']:
         print(" Hosts file restoration cancelled.")
         return False
         
