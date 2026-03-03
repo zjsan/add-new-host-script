@@ -12,7 +12,7 @@ def show_menu():
     print("[1] Add host entry")
     print("[2] Remove host entry")
     print("[3] Fix entry error (glued entries)")
-    print("[4] Restore hosts file from backup")
+    print("[4] Restore hosts file from backup or create a backup")
     print("[5] View hosts file contents")
     print("[0] Exit")
 

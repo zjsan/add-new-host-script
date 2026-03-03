@@ -238,7 +238,13 @@ def fix_glued_entries(ip, domain):
 def restore_hosts():
     HOSTS_PATH = get_hosts_path()
     backup_path = HOSTS_PATH.with_suffix(".bak")
+    confirmed = input(" Are you sure you want to restore the hosts file from backup? This will overwrite the current hosts file. (y/n): ").strip().lower()
 
+
+    if confirmed != 'y':
+        print(" Hosts file restoration cancelled.")
+        return False
+        
     if not backup_path.exists():
         print(" No backup found to restore.")
         print(" Creating a backup of the current hosts file")
