@@ -18,6 +18,6 @@ CMD pyinstaller ^
   --onefile ^
   --uac-admin ^
   --clean ^
-  --name AppSetupTool ^
+  --name HostSetupTool ^
   main.py
 # The resulting executable will be in the dist/ directory
