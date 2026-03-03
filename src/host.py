@@ -145,7 +145,7 @@ def remove_host_entry(ip,domain):
 
         #confirmation prompt before removal to prevent accidental deletion of host entries
         confirmed = input(" Are you sure you want to remove the host entry? (y/n): ").strip().lower()
-        if confirmed != 'y':
+        if confirmed not in ['y', 'yes', 'Yes', 'Y', 'YES']:
             print(" Host entry removal cancelled.")
             return False
         #write the cleaned list back to the file after confirmation
@@ -240,7 +240,7 @@ def restore_hosts():
     confirmed = input(" Are you sure you want to restore the hosts file from backup? This will overwrite the current hosts file. (y/n): ").strip().lower()
 
 
-    if confirmed not in ['y', 'yes']:
+    if confirmed not in ['y', 'yes', 'Yes', 'Y', 'YES']:
         print(" Hosts file restoration cancelled.")
         return False
         
