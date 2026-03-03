@@ -143,8 +143,16 @@ def remove_host_entry(ip,domain):
 
     #write only if something was removed
     if removed:
-        # if the domain was found write the cleaned list
-        return write_hosts_file(new_lines)
+
+        #confirmation prompt before removal to prevent accidental deletion of host entries
+        confirmed = input(" Are you sure you want to remove the host entry? (y/n): ").strip().lower()
+        if confirmed != 'y':
+            print(" Host entry removal cancelled.")
+            return False
+        #write the cleaned list back to the file after confirmation
+        else:
+            # if the domain was found write the cleaned list
+            return write_hosts_file(new_lines)
     return removed
 
 
