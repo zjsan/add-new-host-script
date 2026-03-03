@@ -9,10 +9,7 @@ def get_hosts_path():
     DEBUG = False #set to True for development testing with a test hosts file, False for production use with actual hosts file
 
     if DEBUG:
-
-        # .parent gets the root directory of the project for the test hosts file
         # for development testing purposes
-        #PROJECT_ROOT = Path(__file__).resolve().parent.parent
         if platform.system() == "Windows":
             return Path(r"C:\temp_test\hosts.txt")
         return Path("/mnt/c/temp_test/hosts.txt")

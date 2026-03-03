@@ -58,7 +58,6 @@ def main():
             if success:
                 dnsflush() #flush DNS cache after fixing glued entries
                 print(f"\n Glued entries fixed successfully.\n")
-                #print tail of hosts file to confirm fix
             else:
                 print(f"\n Failed to fix glued entries.\n")
 
