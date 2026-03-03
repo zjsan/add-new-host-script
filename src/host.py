@@ -135,7 +135,6 @@ def remove_host_entry(ip,domain):
         #aand check if domain exists in line
         if clean and not clean.startswith("#"):
             tokens = line.split()#retrieving ip and domain tokens
-            print(tokens)
             if len(tokens) >=2 and tokens[0] == ip and domain in tokens[1]:
                 removed = True
                 continue
