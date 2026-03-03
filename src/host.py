@@ -85,8 +85,6 @@ def host_exist(ip,domain,lines):
         if clean and not clean.startswith("#"):
             
             tokens = line.split()#retrieving ip and domain tokens 
-
-            print(tokens)
             #check if tokens matches the desired ip and domain 
             if len(tokens) >= 2 and tokens[0] == ip and domain in tokens[1]:
                 return True
