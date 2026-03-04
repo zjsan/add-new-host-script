@@ -18,6 +18,6 @@ CMD pyinstaller ^
   --onefile ^
   --uac-admin ^
   --clean ^
-  --name HostSetupTool ^
+  --name SDG_Host_Manager ^
   main.py
 # The resulting executable will be in the dist/ directory

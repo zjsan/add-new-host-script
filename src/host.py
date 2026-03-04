@@ -154,13 +154,6 @@ def remove_host_entry(ip,domain):
             return write_hosts_file(new_lines)
     return removed
 
-
-def log(msg):
-    VERBOSE = True #set to False to disable debug logs
-
-    if VERBOSE:
-        print(msg)
-
 def fix_glued_entries(ip, domain):
             
     try: 
