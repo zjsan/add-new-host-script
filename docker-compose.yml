@@ -5,8 +5,6 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ./src:/app/src
-      - ./dist:/app/src/dist
-      - ./build:/app/src/build
     #prevents the container from exiting immediately if there's a minor error
     stdin_open: true
     tty: true
