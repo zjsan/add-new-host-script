@@ -14,10 +14,5 @@ COPY src/ .
 # --onefile: Bundles everything into one .exe
 # --uac-admin: Forces the .exe to request Admin rights when opened
 # --name: The output filename
-CMD pyinstaller ^
-  --onefile ^
-  --uac-admin ^
-  --clean ^
-  --name SDG_Host_Manager ^
-  main.py
+CMD ["pyinstaller", "--onefile", "--uac-admin", "--clean", "--name", "SDG_Host_Manager", "main.py"]
 # The resulting executable will be in the dist/ directory
