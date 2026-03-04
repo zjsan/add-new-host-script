@@ -1,6 +1,12 @@
 services:
   builder:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     volumes:
-      - .:/app
-    # This ensures the 'dist' folder appears on the host machine
+      - ./src:/app/src
+      - ./dist:/app/src/dist
+      - ./build:/app/src/build
+    #prevents the container from exiting immediately if there's a minor error
+    stdin_open: true
+    tty: true
