@@ -1,14 +1,18 @@
 # Use a lightweight Windows Python image
 FROM python:3.10-windowsservercore-ltsc2022
 
-# Set working directory
-WORKDIR /app
-
 # Install PyInstaller
 RUN pip install pyinstaller
 
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Copy source code
-COPY src/ .
+COPY src/ ./src/
+
+# Set working directory
+WORKDIR /app/src
 
 # Command to build the executable
 # --onefile: Bundles everything into one .exe
