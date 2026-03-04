@@ -6,7 +6,7 @@ production_ip = "13.251.136.207"
 production_domain = "app.sdg-dashboard.com"
 
 def show_menu():
-    print("\n Windows hosts file manager \n")
+    print("\n SDG hosts file manager \n")
     print("------------------------------------------")
     print("Select an option below then press Enter:\n")
     print("[1] Add host entry")
