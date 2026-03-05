@@ -2,7 +2,7 @@ import platform
 import subprocess
 import re
 from pathlib import Path
-
+import os
 
 def get_hosts_path():
 
