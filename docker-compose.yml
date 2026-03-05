@@ -5,6 +5,8 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ./src:/app/src
+      # This "plugs" Windows C: drive into the container's /mnt/c/ when using docker
+      - C:/:/mnt/c/
     #prevents the container from exiting immediately if there's a minor error
     stdin_open: true
     tty: true
