@@ -6,7 +6,7 @@ import os
 
 def get_hosts_path():
 
-    DEBUG = True #set to True for development testing with a test hosts file, False for production use with actual hosts file
+    DEBUG = False #set to True for development testing with a test hosts file, False for production use with actual hosts file
 
     # for development testing purposes
     if DEBUG:
