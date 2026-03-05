@@ -8,14 +8,23 @@ def get_hosts_path():
 
     DEBUG = True #set to True for development testing with a test hosts file, False for production use with actual hosts file
 
+    # for development testing purposes
     if DEBUG:
-        # for development testing purposes
+        is_docker = os.path.exists('/.dockerenv')#check if running inside a docker container
+
+        if is_docker:
+            # Inside Docker, we rely on the volume mapping in docker-compose
+            return Path("/mnt/c/temp_test/hosts.txt")
+        
+        # Local execution (No Docker) - powershell 
         if platform.system() == "Windows":
             return Path(r"C:\temp_test\hosts.txt")
+        
+        #wsl debian execution
         return Path("/mnt/c/temp_test/hosts.txt")
 
+    #production logic
     system = platform.system()
-
     #actual hosts file paths
     if system == "Windows":
         return Path(r"C:\Windows\System32\drivers\etc\hosts")
