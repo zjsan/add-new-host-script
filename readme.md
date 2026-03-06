@@ -53,7 +53,10 @@ Prerequisites
 
   - **Permission Denied:** If the script cannot write to the hosts file, ensure hosts.txt is not "Read-only" in Windows.
 
-Note: Set **DEBUG** to True for development mode and comment out the " is not is_admin()" block in the main.py.
+Note:
+
+- Set **DEBUG** to True for development mode and comment out the " is not is_admin()" block in the main.py.
+- For checking of output, open the host.txt in the directory.
 
 ## Production Build (Windows EXE)
 
