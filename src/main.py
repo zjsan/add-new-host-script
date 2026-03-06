@@ -25,6 +25,8 @@ def is_admin():
 
 def main():
 
+    #comment this block for development and testing without admin privileges
+    #remember to uncomment it for production use to ensure the script functions correctly when modifying the hosts file.
     if not is_admin():
         print("This script requires administrative privileges to run.")
         print("Please run the script as an administrator.")
